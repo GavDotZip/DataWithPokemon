@@ -105,3 +105,27 @@ ggplot(ninetales_stats_df, aes(x = "", y = value, fill = stats)) +
   theme(legend.position = "right") +
   scale_fill_brewer(palette = "Set3") +
   ggtitle(paste("Doughnut Chart for", pokemon_name))
+
+
+
+# Specify the Pokémon name
+pokemon_name <- "Raichu"
+
+# Subset the data for Raichu
+raichu_data <- df[pokemon_name, ]
+
+# Extract Raichu's stats (excluding Total, Generation, and Legendary)
+raichu_stats <- raichu_data[c("HP", "Attack", "Defense", "Sp..Atk", "Sp..Def", "Speed")]
+
+# Convert the stats to a data frame
+raichu_stats_df <- data.frame(stats = names(raichu_stats), value = as.numeric(raichu_stats))
+
+# Create a lollipop chart
+ggplot(raichu_stats_df, aes(x = stats, y = value)) +
+  geom_segment(aes(xend = stats, yend = 0), color = "steelblue", size = 1) +
+  geom_point(color = "steelblue", size = 3) +
+  coord_flip() +
+  theme_minimal() +
+  ggtitle(paste("Lollipop Chart for", pokemon_name)) +
+  xlab("Stats") +
+  ylab("Values")
