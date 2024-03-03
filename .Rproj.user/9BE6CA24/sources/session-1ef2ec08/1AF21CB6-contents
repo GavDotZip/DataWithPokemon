@@ -56,3 +56,29 @@ ggplot() +
   ylab("") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+
+
+# Specify the Pokémon name
+pokemon_name <- "Gengar"
+
+# Subset the data for Gengar
+gengar_data <- df[pokemon_name, ]
+
+# Extract Gengar's stats (excluding Total, Generation, and Legendary)
+gengar_stats <- gengar_data[c("HP", "Attack", "Defense", "Sp..Atk", "Sp..Def", "Speed")]
+
+# Create a dataframe with Gengar's stats
+gengar_stats_df <- data.frame(stats = c("HP", "Attack", "Defense", "Sp..Atk", "Sp..Def", "Speed"),
+                              value = as.numeric(gengar_stats))
+
+# Define the sizes for the bubbles (e.g., use the 'Total' stat)
+bubble_size <- gengar_data$Total
+
+# Create the bubble chart
+ggplot(gengar_stats_df, aes(x = stats, y = value, size = bubble_size)) +
+  geom_point(color = "purple", alpha = 0.7) +
+  scale_size_continuous(range = c(3, 10)) +  # Adjust the range of bubble sizes
+  theme_minimal() +
+  ggtitle(paste("Bubble Chart for", pokemon_name)) +
+  xlab("Stats") +
+  ylab("Values")
