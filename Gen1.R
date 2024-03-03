@@ -82,3 +82,26 @@ ggplot(gengar_stats_df, aes(x = stats, y = value, size = bubble_size)) +
   ggtitle(paste("Bubble Chart for", pokemon_name)) +
   xlab("Stats") +
   ylab("Values")
+
+
+
+# Specify the Pokémon name
+pokemon_name <- "Ninetales"
+
+# Subset the data for Ninetales
+ninetales_data <- df[pokemon_name, ]
+
+# Extract Ninetales's stats (excluding Total, Generation, and Legendary)
+ninetales_stats <- ninetales_data[c("HP", "Attack", "Defense", "Sp..Atk", "Sp..Def", "Speed")]
+
+# Convert the stats to a data frame
+ninetales_stats_df <- data.frame(stats = names(ninetales_stats), value = as.numeric(ninetales_stats))
+
+# Create a doughnut chart
+ggplot(ninetales_stats_df, aes(x = "", y = value, fill = stats)) +
+  geom_bar(stat = "identity", color = "white", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  theme(legend.position = "right") +
+  scale_fill_brewer(palette = "Set3") +
+  ggtitle(paste("Doughnut Chart for", pokemon_name))
